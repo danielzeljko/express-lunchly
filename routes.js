@@ -30,7 +30,6 @@ router.get("/", async function (req, res, next) {
 
 router.get("/best/", async function (req, res, next){
   const customers = await Customer.getBestCustomers();
-  console.log("customers=", customers)
   return res.render("customer_list.html", { customers, title: 'Best Customers' });
 
 });
