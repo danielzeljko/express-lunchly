@@ -1,5 +1,6 @@
 "use strict";
 
+const e = require("express");
 /** Routes for Lunchly */
 
 const express = require("express");
@@ -15,11 +16,12 @@ const router = new express.Router();
 
 router.get("/", async function (req, res, next) {
 
-  let customers = await Customer.all();
+  let customers;
 
   if (req.query.search !== undefined) {
-    const [firstName, lastName] = req.query.search.split(" ");
-    customers = await Customer.searchByName(firstName, lastName);
+    customers = await Customer.searchByName(req.query.search);
+  } else {
+    customers = await Customer.all();
   }
   return res.render("customer_list.html", { customers });
 });

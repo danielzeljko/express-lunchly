@@ -56,14 +56,14 @@ class Customer {
     return new Customer(customer);
   }
 
-  static async searchByName(firstName, lastName) {
+  static async searchByName(searchTerm) {
     const results = await db.query(
       `SELECT id,
         first_name AS "firstName",
         last_name AS "lastName"
       FROM customers
-      WHERE first_name = $1 AND last_name = $2`,
-      [firstName, lastName]
+      WHERE CONCAT_ws(' ', first_name, last_name) ILIKE $1`,
+      [`%${searchTerm}%`]
     );
     const customers = results.rows.map(r => new Customer(r));
 
