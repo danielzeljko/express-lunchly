@@ -12,7 +12,7 @@ class Reservation {
   constructor({ id, customerId, numGuests, startAt, notes }) {
     this.id = id;
     this.customerId = customerId;
-    // this.numGuests = numGuests;
+    this.numGuests = numGuests;
     this.startAt = startAt;
     this.notes = notes;
   }
