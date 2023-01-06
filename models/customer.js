@@ -57,7 +57,6 @@ class Customer {
   }
 
   static async searchByName(firstName, lastName) {
-    console.log("here are the firstname/lastname in searchbyname", firstName, lastName)
     const results = await db.query(
       `SELECT id, 
         first_name AS "firstName", 
@@ -66,9 +65,7 @@ class Customer {
       WHERE first_name = $1 AND last_name = $2`,
       [firstName, lastName]
     )
-    console.log("here are the results.row", results.rows)
     const customers = results.rows.map(r => new Customer(r));
-    console.log("here are the customers", customers)
 
     return customers;
   }

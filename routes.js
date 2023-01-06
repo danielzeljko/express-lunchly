@@ -17,9 +17,8 @@ router.get("/", async function (req, res, next) {
   let customers = await Customer.all();
 
   if (req.query.search !== undefined) {
-    const [firstName, lastName] = req.query.search.split("+");
+    const [firstName, lastName] = req.query.search.split(" ");
     customers = await Customer.searchByName(firstName, lastName);
-    console.log(firstName, lastName, customers)
   }
   return res.render("customer_list.html", { customers });
 });
