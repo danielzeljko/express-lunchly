@@ -12,9 +12,20 @@ class Reservation {
   constructor({ id, customerId, numGuests, startAt, notes }) {
     this.id = id;
     this.customerId = customerId;
-    this.numGuests = numGuests;
+    // this.numGuests = numGuests;
     this.startAt = startAt;
     this.notes = notes;
+  }
+
+  get numGuests() {
+    return this._numGuests;
+  }
+
+  set numGuests(count){
+    if(count < 1){
+      throw new Error("You need at least 1 person")
+    }
+    this._numGuests = count;
   }
 
   /** formatter for startAt */
@@ -43,6 +54,7 @@ class Reservation {
    /** save this reservation. */
 
    async save() {
+
     if (this.id === undefined) {
       const result = await db.query(
             `INSERT INTO reservations (customer_id, num_guests, start_at, notes)
