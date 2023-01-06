@@ -9,14 +9,14 @@ const { Client } = require("pg");
 //     : "postgresql:///lunchly";
 
 /* Daniel's WSL**/
-// const DB_URI = process.env.NODE_ENV === "test"
-//   ? "postgresql://daniel:postgres@localhost/lunchly_test"
-//   : "postgresql://daniel:postgres@localhost/lunchly";
+const DB_URI = process.env.NODE_ENV === "test"
+  ? "postgresql://daniel:postgres@localhost/lunchly_test"
+  : "postgresql://daniel:postgres@localhost/lunchly";
 
 /* Jesse's WSL**/
-const DB_URI = process.env.NODE_ENV === "test"
-  ? "postgresql://meyburdj:meyburdj@localhost/lunchly_test"
-  : "postgresql://meyburdj:meyburdj@localhost/lunchly";
+// const DB_URI = process.env.NODE_ENV === "test"
+//   ? "postgresql://meyburdj:meyburdj@localhost/lunchly_test"
+//   : "postgresql://meyburdj:meyburdj@localhost/lunchly";
 
 
 

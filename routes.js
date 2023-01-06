@@ -3,6 +3,7 @@
 /** Routes for Lunchly */
 
 const express = require("express");
+const db = require("./db");
 
 const { BadRequestError } = require("./expressError");
 const Customer = require("./models/customer");
@@ -21,6 +22,15 @@ router.get("/", async function (req, res, next) {
     customers = await Customer.searchByName(firstName, lastName);
   }
   return res.render("customer_list.html", { customers });
+});
+
+/** Show the top 10 best customers ordered by most reservations */
+
+router.get("/best/", async function (req, res, next){
+  const customers = await Customer.getBestCustomers();
+  console.log("customers=", customers)
+  return res.render("customer_list.html", { customers, title: 'Best Customers' });
+
 });
 
 /** Form to add a new customer. */

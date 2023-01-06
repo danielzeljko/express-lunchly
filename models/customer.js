@@ -58,13 +58,13 @@ class Customer {
 
   static async searchByName(firstName, lastName) {
     const results = await db.query(
-      `SELECT id, 
-        first_name AS "firstName", 
+      `SELECT id,
+        first_name AS "firstName",
         last_name AS "lastName"
       FROM customers
       WHERE first_name = $1 AND last_name = $2`,
       [firstName, lastName]
-    )
+    );
     const customers = results.rows.map(r => new Customer(r));
 
     return customers;
@@ -106,8 +106,26 @@ class Customer {
   }
 
   getFullName() {
-    return `${this.firstName} ${this.lastName}`
+    return `${this.firstName} ${this.lastName}`;
   }
+
+  /**
+   * Finds our top 10 customers ordered by most reservations.
+   */
+  static async getBestCustomers() {
+    const results = await db.query(`
+      SELECT c.id, c.first_name as "firstName", c.last_name as "lastName", count(c.id)
+        FROM customers AS c
+        JOIN reservations AS r
+        ON r.customer_id = c.id
+        GROUP BY c.id
+        ORDER BY count(c.id) DESC
+        LIMIT 10
+    `);
+
+    return results.rows.map(r => new Customer(r));
+  }
+
 }
 
 module.exports = Customer;
